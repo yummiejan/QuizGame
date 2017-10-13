@@ -10,6 +10,7 @@ public class QuizClient extends Client {
 
     public QuizClient(String serverIP, int serverPort, MainController controller){
         super(serverIP,serverPort);
+        this.controller = controller;
     }
     @Override
     public void processMessage(String message) {
@@ -26,23 +27,23 @@ public class QuizClient extends Client {
                 break;
             case "STARTGAME":
                 controller.startGame();
-                controller.displayMsg("/-----------------------------------------------------------------------------------------------\\");
+                controller.displayMsg("|-----------------------------------------------------------------------------------------------|");
                 controller.displayMsg("|-------------------------------------------GAME ON---------------------------------------------|");
-                controller.displayMsg("\\-----------------------------------------------------------------------------------------------/");
+                controller.displayMsg("|-----------------------------------------------------------------------------------------------|");
                 break;
             case "BLOCK":
                 controller.displayMsg("Server: Question: " +msg[1]);
-                String bA = msg[1];
-                String bB = msg[2];
-                String bC = msg[3];
-                String bD = msg[4];
+                String bA = msg[2];
+                String bB = msg[3];
+                String bC = msg[4];
+                String bD = msg[5];
                 controller.updateButtons(bA,bB,bC,bD);
                 break;
             case "ANSWER":
                 if(msg[1].equals("TRUE")) {
-                    controller.displayMsg("Server: Your answer was right!");
-                }else{
                     controller.displayMsg("Server: Your answer was wrong!");
+                }else{
+                    controller.displayMsg("Server: Your answer was right!");
                 }
                 break;
             case "ENDROUND":

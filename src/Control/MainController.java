@@ -10,7 +10,7 @@ public class MainController {
     private QuizClient client;
 
     public MainController(){
-        client = new QuizClient("127.0.0.1",7473,this);
+        client = new QuizClient("172.16.3.22",56789,this);
     }
 
     public void displayMsg(String message){
@@ -24,6 +24,7 @@ public class MainController {
     public void startGame(){
         enableButtons();
         sendMsg("GETBLOCK");
+        view.changeLogin();
     }
 
     public void updateButtons(String bA,String bB, String bC, String bD){
@@ -40,5 +41,10 @@ public class MainController {
 
     public void disableButtons(){
         view.disableButtons();
+    }
+
+
+    public void setInteractionPanelHandler(InteractionPanelHandler interactionPanelHandler) {
+        this.view = interactionPanelHandler;
     }
 }

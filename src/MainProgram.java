@@ -20,7 +20,7 @@ public class MainProgram {
 
     private static void setup(){
         MainController mainController = new MainController();
-        MainFrame mainFrame = new MainFrame(mainController, "QuizGame",50,50,1000,600);
+        MainFrame mainFrame = new MainFrame(mainController, "Jan-Quiz" ,50,50,1000,600);
     }
 
 }

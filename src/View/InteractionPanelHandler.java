@@ -27,12 +27,16 @@ public class InteractionPanelHandler {
     private JTextField usernameTextField;
     private JLabel usernameLabel;
     private boolean focus;
+    private boolean login;
 
     public InteractionPanelHandler(MainController mainController) {
         this.mainController = mainController;
+        mainController.setInteractionPanelHandler(this);
         createButtons();
 
         addToOutput("Login with your username and password!");
+
+        login = true;
 
     }
 
@@ -40,8 +44,12 @@ public class InteractionPanelHandler {
         loginButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                mainController.sendMsg("LOGIN");
-                mainController.sendMsg("USER#" + usernameTextField.getText() + "#" + passwordTextField.getText());
+                if(login) {
+                    mainController.sendMsg("LOGIN");
+                    mainController.sendMsg("USER#" + usernameTextField.getText() + "#" + passwordTextField.getText());
+                }else{
+                    mainController.sendMsg("GETPOINTS");
+                }
             }
         });
 
@@ -67,7 +75,9 @@ public class InteractionPanelHandler {
                 super.keyPressed(e);
                 if(focus && e.getKeyCode() == KeyEvent.VK_ENTER){
                     mainController.sendMsg("SEND#" + chatBox.getText());
+
                 }
+                chatBox.setText("");
             }
         });
 
@@ -127,6 +137,12 @@ public class InteractionPanelHandler {
         loginButton.setEnabled(false);
     }
 
+    public void changeLogin(){
+        loginButton.setText("Get points");
+        loginButton.setEnabled(true);
+        login = false;
+    }
+
     public JPanel getPanel(){
         return panel;
     }
@@ -146,6 +162,6 @@ public class InteractionPanelHandler {
         }else{
             sideField.setText(sideField.getText() + "\n" + text);
         }
-
     }
+
 }
